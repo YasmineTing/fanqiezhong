@@ -89,6 +89,8 @@ label {
 }
 
 input[type="time"],
+input[type="number"],
+input[type="text"],
 select {
   padding: 10px 12px;
   border-radius: 10px;
@@ -101,6 +103,8 @@ select {
 }
 
 input[type="time"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
 select:focus {
   border-color: var(--rose-300);
   box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
@@ -110,6 +114,88 @@ select:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  color: var(--rose-600);
+  margin-bottom: 6px;
+}
+
+.section-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.tasks,
+.stats {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--rose-100);
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.tasks__input {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tasks__input input {
+  flex: 1 1 220px;
+}
+
+.tasks__list {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--rose-50);
+  border: 1px solid var(--rose-100);
+}
+
+.task-item.completed {
+  opacity: 0.7;
+  text-decoration: line-through;
+}
+
+.task-item select {
+  min-width: 86px;
+}
+
+.stats__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.stats__label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.stats__value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--rose-600);
+}
+
+canvas {
+  width: 100%;
+  border-radius: 12px;
+  background: var(--rose-50);
+  border: 1px solid var(--rose-100);
 }
 
 button {

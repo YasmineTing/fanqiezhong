@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>淡红白番茄钟</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>番茄钟</h1>
+      <p>选择工作与休息时间，精确到秒</p>
+    </header>
+
+    <section class="timer" aria-live="polite">
+      <div class="timer__display" id="timerDisplay">25:00</div>
+      <div class="timer__status" id="timerStatus">工作模式</div>
+    </section>
+
+    <section class="controls">
+      <div class="controls__group">
+        <label for="workTime">工作时间</label>
+        <input type="time" id="workTime" step="1" value="00:25:00" />
+      </div>
+      <div class="controls__group">
+        <label for="restTime">休息时间</label>
+        <input type="time" id="restTime" step="1" value="00:05:00" />
+      </div>
+      <div class="controls__group">
+        <label for="longRestTime">长休息时间</label>
+        <input type="time" id="longRestTime" step="1" value="00:15:00" />
+      </div>
+      <div class="controls__group">
+        <label for="cyclesCount">每次长休息前工作轮数</label>
+        <input type="number" id="cyclesCount" min="1" max="12" value="4" />
+      </div>
+      <div class="controls__group">
+        <label for="modeSelect">当前模式</label>
+        <select id="modeSelect">
+          <option value="work" selected>工作</option>
+          <option value="rest">休息</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="buttons">
+      <button id="startBtn" class="primary">开始</button>
+      <button id="pauseBtn">暂停</button>
+      <button id="resetBtn" class="ghost">重置</button>
+    </section>
+
+    <section class="tasks">
+      <header class="section-header">
+        <h2>任务管理</h2>
+        <p>每轮番茄钟开始前填写任务，完成后打钩或标记完成度。</p>
+      </header>
+      <div class="tasks__input">
+        <input type="text" id="taskInput" placeholder="例如：完成方案草稿" />
+        <button id="addTaskBtn">添加任务</button>
+      </div>
+      <ul class="tasks__list" id="tasksList"></ul>
+    </section>
+
+    <section class="stats">
+      <header class="section-header">
+        <h2>今日统计</h2>
+        <p>完成轮数与专注时长分布</p>
+      </header>
+      <div class="stats__summary">
+        <div>
+          <span class="stats__label">完成轮数</span>
+          <span class="stats__value" id="completedRounds">0</span>
+        </div>
+        <div>
+          <span class="stats__label">专注分钟</span>
+          <span class="stats__value" id="focusMinutes">0</span>
+        </div>
+      </div>
+      <canvas id="focusChart" width="480" height="200"></canvas>
+    </section>
+
+    <section class="achievements">
+      <header class="section-header">
+        <h2>成就系统</h2>
+        <p>连续专注与累计轮数解锁成就</p>
+      </header>
+      <div class="achievements__list" id="achievementsList"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

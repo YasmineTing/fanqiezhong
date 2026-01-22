@@ -15,13 +15,13 @@ const tasksList = document.getElementById("tasksList");
 const completedRoundsEl = document.getElementById("completedRounds");
 const focusMinutesEl = document.getElementById("focusMinutes");
 const focusChart = document.getElementById("focusChart");
+const achievementsList = document.getElementById("achievementsList");
 
 let remainingSeconds = 25 * 60;
 let timerId = null;
 let isRunning = false;
 let isLongRest = false;
 let workSessionsCompleted = 0;
-let activeTaskId = null;
 
 const statsKey = "pomodoroStats";
 
@@ -65,12 +65,63 @@ const saveStats = (stats) => {
   localStorage.setItem(statsKey, JSON.stringify(stats));
 };
 
+const achievementsConfig = [
+  {
+    id: "first-round",
+    title: "第一轮完成",
+    description: "完成 1 轮番茄钟",
+    check: (statsValue) => statsValue.completedRounds >= 1,
+  },
+  {
+    id: "four-rounds",
+    title: "四轮达人",
+    description: "累计完成 4 轮番茄钟",
+    check: (statsValue) => statsValue.completedRounds >= 4,
+  },
+  {
+    id: "ten-rounds",
+    title: "专注达人",
+    description: "累计完成 10 轮番茄钟",
+    check: (statsValue) => statsValue.completedRounds >= 10,
+  },
+  {
+    id: "hour-focus",
+    title: "一小时专注",
+    description: "累计专注时长达到 60 分钟",
+    check: (statsValue) => statsValue.focusMinutes >= 60,
+  },
+];
+
 let stats = loadStats();
 
 const renderStats = () => {
   completedRoundsEl.textContent = stats.completedRounds;
   focusMinutesEl.textContent = stats.focusMinutes;
   drawChart();
+  renderAchievements();
+};
+
+const renderAchievements = () => {
+  achievementsList.innerHTML = "";
+  achievementsConfig.forEach((achievement) => {
+    const unlocked = achievement.check(stats);
+    const card = document.createElement("div");
+    card.className = "achievement-card";
+    if (!unlocked) {
+      card.classList.add("locked");
+    }
+
+    const title = document.createElement("div");
+    title.className = "achievement-card__title";
+    title.textContent = unlocked ? `✅ ${achievement.title}` : achievement.title;
+
+    const desc = document.createElement("div");
+    desc.className = "achievement-card__desc";
+    desc.textContent = achievement.description;
+
+    card.append(title, desc);
+    achievementsList.append(card);
+  });
 };
 
 const drawChart = () => {
@@ -138,10 +189,8 @@ const addFocusStats = (seconds) => {
 };
 
 const createTaskItem = (taskText) => {
-  const taskId = crypto.randomUUID();
   const item = document.createElement("li");
   item.className = "task-item";
-  item.dataset.taskId = taskId;
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -169,7 +218,7 @@ const createTaskItem = (taskText) => {
   tasksList.prepend(item);
   updateTaskState();
 
-  return taskId;
+  return item;
 };
 
 const handleSessionComplete = () => {
@@ -207,12 +256,10 @@ const startTimer = () => {
   if (isRunning) return;
   if (modeSelect.value === "work") {
     const taskText = taskInput.value.trim();
-    if (!taskText) {
-      alert("请先输入本轮要完成的任务。");
-      return;
+    if (taskText) {
+      createTaskItem(taskText);
+      taskInput.value = "";
     }
-    activeTaskId = createTaskItem(taskText);
-    taskInput.value = "";
   }
   if (remainingSeconds <= 0) {
     syncRemainingWithMode();
@@ -236,7 +283,7 @@ const resetTimer = () => {
 addTaskBtn.addEventListener("click", () => {
   const taskText = taskInput.value.trim();
   if (!taskText) return;
-  activeTaskId = createTaskItem(taskText);
+  createTaskItem(taskText);
   taskInput.value = "";
 });
 

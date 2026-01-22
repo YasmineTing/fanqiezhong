@@ -128,7 +128,8 @@ select:focus {
 }
 
 .tasks,
-.stats {
+.stats,
+.achievements {
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid var(--rose-100);
@@ -196,6 +197,34 @@ canvas {
   border-radius: 12px;
   background: var(--rose-50);
   border: 1px solid var(--rose-100);
+}
+
+.achievements__list {
+  display: grid;
+  gap: 12px;
+}
+
+.achievement-card {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--rose-100);
+  background: var(--rose-50);
+  display: grid;
+  gap: 6px;
+}
+
+.achievement-card.locked {
+  opacity: 0.6;
+}
+
+.achievement-card__title {
+  font-weight: 700;
+  color: var(--rose-600);
+}
+
+.achievement-card__desc {
+  font-size: 14px;
+  color: var(--text-muted);
 }
 
 button {

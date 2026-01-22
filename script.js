@@ -3,6 +3,7 @@ const timerStatus = document.getElementById("timerStatus");
 const workTimeInput = document.getElementById("workTime");
 const restTimeInput = document.getElementById("restTime");
 const modeSelect = document.getElementById("modeSelect");
+const timerCard = document.querySelector(".timer");
 const startBtn = document.getElementById("startBtn");
 const pauseBtn = document.getElementById("pauseBtn");
 const resetBtn = document.getElementById("resetBtn");
@@ -42,13 +43,32 @@ const syncRemainingWithMode = () => {
   updateStatus();
 };
 
+const triggerShake = () => {
+  if (!timerCard) return;
+  timerCard.classList.remove("shake");
+  void timerCard.offsetWidth;
+  timerCard.classList.add("shake");
+};
+
+const handleSessionComplete = () => {
+  pauseTimer();
+  if (modeSelect.value === "work") {
+    modeSelect.value = "rest";
+    syncRemainingWithMode();
+    triggerShake();
+    startTimer();
+    return;
+  }
+  updateStatus();
+};
+
 const tick = () => {
   if (remainingSeconds > 0) {
     remainingSeconds -= 1;
     updateDisplay();
     return;
   }
-  pauseTimer();
+  handleSessionComplete();
 };
 
 const startTimer = () => {

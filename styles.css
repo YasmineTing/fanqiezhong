@@ -56,6 +56,10 @@ body {
   border: 1px solid var(--rose-100);
 }
 
+.timer.shake {
+  animation: shake 0.65s ease-in-out;
+}
+
 .timer__display {
   font-size: 52px;
   font-weight: 700;
@@ -150,5 +154,32 @@ button.ghost {
 
   button {
     width: 100%;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-18px);
+  }
+  30% {
+    transform: translateX(18px);
+  }
+  45% {
+    transform: translateX(-14px);
+  }
+  60% {
+    transform: translateX(14px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  90% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }

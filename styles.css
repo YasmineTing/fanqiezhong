@@ -1,0 +1,271 @@
+:root {
+  color-scheme: light;
+  --rose-50: #fff5f5;
+  --rose-100: #ffe4e6;
+  --rose-300: #fda4af;
+  --rose-500: #f43f5e;
+  --rose-600: #e11d48;
+  --text-dark: #4a1d24;
+  --text-muted: #7f3a45;
+  --shadow: 0 12px 30px rgba(228, 93, 107, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  background: linear-gradient(135deg, var(--rose-50), #ffffff 60%);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.app {
+  background: #ffffff;
+  padding: 32px 40px;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  width: min(520px, 100%);
+  display: grid;
+  gap: 24px;
+  border: 1px solid var(--rose-100);
+}
+
+.app__header h1 {
+  font-size: 32px;
+  color: var(--rose-600);
+  margin-bottom: 8px;
+}
+
+.app__header p {
+  color: var(--text-muted);
+}
+
+.timer {
+  background: var(--rose-50);
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid var(--rose-100);
+}
+
+.timer.shake {
+  animation: shake 0.65s ease-in-out;
+}
+
+.timer__display {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--rose-600);
+}
+
+.timer__status {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+.controls {
+  display: grid;
+  gap: 16px;
+}
+
+.controls__group {
+  display: grid;
+  gap: 8px;
+}
+
+label {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+input[type="time"],
+input[type="number"],
+input[type="text"],
+select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--rose-100);
+  font-size: 16px;
+  color: var(--text-dark);
+  background: #ffffff;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="time"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+  border-color: var(--rose-300);
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  color: var(--rose-600);
+  margin-bottom: 6px;
+}
+
+.section-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.tasks,
+.stats {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--rose-100);
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.tasks__input {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tasks__input input {
+  flex: 1 1 220px;
+}
+
+.tasks__list {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--rose-50);
+  border: 1px solid var(--rose-100);
+}
+
+.task-item.completed {
+  opacity: 0.7;
+  text-decoration: line-through;
+}
+
+.task-item select {
+  min-width: 86px;
+}
+
+.stats__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.stats__label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.stats__value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--rose-600);
+}
+
+canvas {
+  width: 100%;
+  border-radius: 12px;
+  background: var(--rose-50);
+  border: 1px solid var(--rose-100);
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-size: 16px;
+  cursor: pointer;
+  background: var(--rose-100);
+  color: var(--rose-600);
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(244, 63, 94, 0.2);
+}
+
+button.primary {
+  background: var(--rose-500);
+  color: #ffffff;
+}
+
+button.ghost {
+  background: #ffffff;
+  border: 1px solid var(--rose-100);
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 24px;
+  }
+
+  .timer__display {
+    font-size: 44px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-18px);
+  }
+  30% {
+    transform: translateX(18px);
+  }
+  45% {
+    transform: translateX(-14px);
+  }
+  60% {
+    transform: translateX(14px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  90% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
